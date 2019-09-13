@@ -5,6 +5,7 @@
 # -------------------------------------------
 # *** Adding privilege separation directory ***
 # -------------------------------------------
+
 - name: Service // Creating privilege separation directory
   file:
     path: /var/run/sshd
@@ -14,36 +15,39 @@
     mode: 0775
   become: yes
 
+
 # -------------------------------------------
 # *** Service template ***
 # -------------------------------------------
+
 - name: Service // Copying service-template to server
   template:
     src: templates/server.service.j2
-    dest: /etc/systemd/system/{{ service_props.name }}.service
-    owner: "{{ service_service_owner }}"
-    group: "{{ service_service_owner }}"
+    dest: /etc/systemd/system/{{ nodejs_service_props.name }}.service
+    owner: "{{ nodejs_service_owner }}"
+    group: "{{ nodejs_service_owner }}"
   become: yes
 
 
 # -------------------------------------------
 # *** Autorun & State ***
 # -------------------------------------------
-- name: Service // {{ service_props.state }} Service & {{ 'enabled' if service_props.autostart=='yes' else 'disabled' }} autostart
-  systemd:
-    name: "{{ service_props.name }}"
-    state: "{{ service_props.state }}"
-    enabled: "{{ service_props.autostart }}"
-  become: yes
 
+- name: Service // {{ nodejs_service_props.state }} Service & {{ 'enabled' if nodejs_service_props.autostart=='yes' else 'disabled' }} autostart
+  systemd:
+    name: "{{ nodejs_service_props.name }}"
+    state: "{{ nodejs_service_props.state }}"
+    enabled: "{{ nodejs_service_props.autostart }}"
+  become: yes
 
 
 # -------------------------------------------
 # *** Restart Servers ***
 # -------------------------------------------
+
 - name: Restart server
   service:
-    name: "{{ service_props.name }}"
+    name: "{{ nodejs_service_props.name }}"
     state: restarted
   become: yes
 
