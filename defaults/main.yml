@@ -1,0 +1,17 @@
+---
+# defaults file for service
+
+service_service_owner: null
+service_server_path: null
+service_working_directory: null
+service_service_executable: startup.sh
+service_env_path: null
+
+# --------------------------
+# *** Service Properties ***
+# --------------------------
+
+service_service_props:
+  name: null
+  state: started
+  autostart: yes

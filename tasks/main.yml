@@ -1,0 +1,54 @@
+---
+# tasks file for service
+
+
+# -------------------------------------------
+# *** Adding privilege separation directory ***
+# -------------------------------------------
+- name: Service // Creating privilege separation directory
+  file:
+    path: /var/run/sshd
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  become: yes
+
+# -------------------------------------------
+# *** Service template ***
+# -------------------------------------------
+- name: Service // Copying service-template to server
+  template:
+    src: templates/server.service.j2
+    dest: /etc/systemd/system/{{ service_props.name }}.service
+    owner: "{{ service_service_owner }}"
+    group: "{{ service_service_owner }}"
+  become: yes
+
+
+# -------------------------------------------
+# *** Autorun & State ***
+# -------------------------------------------
+- name: Service // {{ service_props.state }} Service & {{ 'enabled' if service_props.autostart=='yes' else 'disabled' }} autostart
+  systemd:
+    name: "{{ service_props.name }}"
+    state: "{{ service_props.state }}"
+    enabled: "{{ service_props.autostart }}"
+  become: yes
+
+
+
+# -------------------------------------------
+# *** Restart Servers ***
+# -------------------------------------------
+- name: Restart server
+  service:
+    name: "{{ service_props.name }}"
+    state: restarted
+  become: yes
+
+- name: Restart SSH
+  service:
+    name: ssh
+    state: restarted
+  become: yes

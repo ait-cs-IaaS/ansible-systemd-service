@@ -1,0 +1,17 @@
+[Unit]
+Description={{ service_service_props.name }}
+
+[Service]
+ExecStart={{ service_server_path }}{{ service_service_executable }}
+{% if service_working_directory %}
+WorkingDirectory={{ service_working_directory }}
+{% endif %}
+{% if service_env_path %}
+EnvironmentFile={{ service_env_path }}
+{% endif %}
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+
