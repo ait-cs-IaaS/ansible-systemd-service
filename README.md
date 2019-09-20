@@ -1,38 +1,64 @@
-Role Name
+Systemd-service
 =========
 
-A brief description of the role goes here.
+The purpose of this role is to configure and run various servers as a systemd-service, enabling the process to be 
+controlled and supervised by systemd.
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The server must be installed and configured before executing this role.
+Furthermore, the tasks of this role require the ansible priviledge escalation.
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+This role requires variables set in the global scope defined in the respective service_vars file of the desired service. In the following a list of these variables is depicted:
+
+
+| Variable name                   | Type    | Default  | Description                                             |
+| ------------------------------- | ------- | -------- | ------------------------------------------------------- |
+| nodejs_service_owner            | string  |  *(N/A)* | User with priviledges to copy files                     |
+| nodejs_exec_path                | string  |  *(N/A)* | Path to startup.sh                                      |
+| nodejs_working_dir (optional)   | string  |  *(N/A)* | Path to where to service should run                     |
+| nodejs_env_path                 | string  |  *(N/A)* | Path to the env-file of the service                     |
+| **nodejs_service_props** |||| 
+| &nbsp;&nbsp;&nbsp;&nbsp;.name                         | string  |  *(N/A)* | Name of the service                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;.state                        | string  |  *(N/A)* | Denotes whether the service is started (started/stopped)|
+| &nbsp;&nbsp;&nbsp;&nbsp;.autostart                    | string  |  *(N/A)* | Denotes whether the service should start on boot        |
+| &nbsp;&nbsp;&nbsp;&nbsp;.user (optional)              | string  | root     | Service run as user                                     |
+
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
-Example Playbook
+
+Example Configuration
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+In the following an example configuration of the update-server is shown. Note in this case no working directory is required:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    nodejs_service_owner: updater
+    nodejs_exec_path: /usr/src/update-server/startup.sh
+    nodejs_env_path: /usr/src/update-server/env
+
+    nodejs_service_props:
+      name: update-server
+      state: started
+      autostart: yes
+      user: updater
 
 License
 -------
 
-BSD
+GPL
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2019 by Lenhard Reuter
