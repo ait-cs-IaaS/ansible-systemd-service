@@ -1,16 +1,16 @@
 [Unit]
-Description={{ service_service_props.name }}
+Description={{ nodejs_service_props.name }}
 
 [Service]
-ExecStart={{ service_server_path }}{{ service_service_executable }}
-{% if service_working_directory %}
-WorkingDirectory={{ service_working_directory }}
+ExecStart={{ nodejs_exec_path }}
+{% if nodejs_working_dir is defined %}
+WorkingDirectory={{ nodejs_working_dir }}
 {% endif %}
-{% if service_env_path %}
-EnvironmentFile={{ service_env_path }}
+{% if nodejs_env_path %}
+EnvironmentFile={{ nodejs_env_path }}
 {% endif %}
-User=root
-Group=root
+User={{ nodejs_service_props.user if (nodejs_service_props.user is defined) else 'root' }}
+Group={{ nodejs_service_props.user if (nodejs_service_props.user is defined) else 'root' }}
 
 [Install]
 WantedBy=multi-user.target
