@@ -6,7 +6,7 @@ ExecStart={{ systemd_service_exec_path }}
 {% if systemd_service_working_dir is defined and systemd_service_working_dir|length %}
 WorkingDirectory={{ systemd_service_working_dir }}
 {% endif %}
-{% if systemd_service_env_path %}
+{% if systemd_service_env_path is defined %}
 EnvironmentFile={{ systemd_service_env_path }}
 {% endif %}
 User={{ systemd_service_props.user if (systemd_service_props.user is defined) else 'root' }}
