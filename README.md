@@ -55,7 +55,7 @@ In the following an example configuration of the update-server is shown. Note in
 License
 -------
 
-GPL
+MIT
 
 Author Information
 ------------------
