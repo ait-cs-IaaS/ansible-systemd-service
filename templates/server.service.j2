@@ -1,16 +1,16 @@
 [Unit]
-Description={{ nodejs_service_props.name }}
+Description={{ systemd_service_props.name }}
 
 [Service]
-ExecStart={{ nodejs_exec_path }}
-{% if nodejs_working_dir is defined %}
-WorkingDirectory={{ nodejs_working_dir }}
+ExecStart={{ systemd_service_exec_path }}
+{% if systemd_service_working_dir is defined and systemd_service_working_dir|length %}
+WorkingDirectory={{ systemd_service_working_dir }}
 {% endif %}
-{% if nodejs_env_path %}
-EnvironmentFile={{ nodejs_env_path }}
+{% if systemd_service_env_path %}
+EnvironmentFile={{ systemd_service_env_path }}
 {% endif %}
-User={{ nodejs_service_props.user if (nodejs_service_props.user is defined) else 'root' }}
-Group={{ nodejs_service_props.user if (nodejs_service_props.user is defined) else 'root' }}
+User={{ systemd_service_props.user if (systemd_service_props.user is defined) else 'root' }}
+Group={{ systemd_service_props.user if (systemd_service_props.user is defined) else 'root' }}
 
 [Install]
 WantedBy=multi-user.target
