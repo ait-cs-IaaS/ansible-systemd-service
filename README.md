@@ -20,14 +20,13 @@ This role requires variables set in the global scope defined in the respective s
 
 | Variable name                   | Type    | Default  | Description                                             |
 | ------------------------------- | ------- | -------- | ------------------------------------------------------- |
-| nodejs_service_owner            | string  |  *(N/A)* | User with priviledges to copy files                     |
-| nodejs_exec_path                | string  |  *(N/A)* | Path to startup.sh                                      |
-| nodejs_working_dir (optional)   | string  |  *(N/A)* | Path to where to service should run                     |
-| nodejs_env_path                 | string  |  *(N/A)* | Path to the env-file of the service                     |
-| **nodejs_service_props** |||| 
+| systemd_service_exec_path                | string  |  *(N/A)* | Path to startup.sh                                      |
+| systemd_service_working_dir (optional)   | string  |  *(N/A)* | Path to where to service should run                     |
+| systemd_service_env_path        | string  |  *(N/A)* | Path to the env-file of the service                     |
+| **systemd_service_props** |||| 
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .name                         | string  |  *(N/A)* | Name of the service                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .state                        | string  |  *(N/A)* | Denotes whether the service is started (started/stopped)|
-| &nbsp;&nbsp;&nbsp;&nbsp;∟ .autostart                    | string  |  *(N/A)* | Denotes whether the service should start on boot        |
+| &nbsp;&nbsp;&nbsp;&nbsp;∟ .autostart                    | string  |  'started' | Denotes whether the service should start on boot        |
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .user (optional)              | string  | root     | Service run as user                                     |
 
 
