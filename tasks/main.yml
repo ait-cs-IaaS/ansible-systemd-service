@@ -24,4 +24,5 @@
     name: "{{ systemd_service_props.name }}"
     state: "{{ systemd_service_props.state | default('started') }}"
     enabled: "{{ systemd_service_props.autostart }}"
+    daemon_reload: "{{ systemd_service_props.reload | default('no') }}"
   become: yes

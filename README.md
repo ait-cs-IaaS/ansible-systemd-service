@@ -28,6 +28,7 @@ This role requires variables set in the global scope defined in the respective s
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .state                        | string  |  *(N/A)* | Denotes whether the service is started (started/stopped)|
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .autostart                    | string  |  'started' | Denotes whether the service should start on boot        |
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .user (optional)              | string  | root     | Service run as user                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;∟ .reload          | yes/no    | no    | Switch to decide if the systemd daemon shall be reloaded. Needed if the service config changed. |
 
 
 
@@ -42,11 +43,11 @@ Example Configuration
 
 In the following an example configuration of the update-server is shown. Note in this case no working directory is required:
 
-    nodejs_service_owner: updater
-    nodejs_exec_path: /usr/src/update-server/startup.sh
-    nodejs_env_path: /usr/src/update-server/env
+    systemd_service_owner: updater
+    systemd_service_exec_path: /usr/src/update-server/startup.sh
+    systemd_service_env_path: /usr/src/update-server/env
 
-    nodejs_service_props:
+    systemd_service_service_props:
       name: update-server
       state: started
       autostart: yes
