@@ -19,7 +19,7 @@
 # *** Autorun & State ***
 # -------------------------------------------
 
-- name: "{{ systemd_service_props.state }} Service & {{ 'enabled' if systemd_service_props.autostart=='yes' else 'disabled' }} autostart"
+- name: "{{ systemd_service_props.state }} Service & set autostart"
   systemd:
     name: "{{ systemd_service_props.name }}"
     state: "{{ systemd_service_props.state | default('started') }}"
