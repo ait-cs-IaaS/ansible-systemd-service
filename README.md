@@ -1,19 +1,14 @@
-Systemd-service
-=========
+# Ansible Role: systemd-service
 
 The purpose of this role is to configure and run various servers as a systemd-service, enabling the process to be 
 controlled and supervised by systemd.
 
-
-Requirements
-------------
+## Requirements
 
 The server must be installed and configured before executing this role.
 Furthermore, the tasks of this role require the ansible priviledge escalation.
 
-
-Role Variables
---------------
+## Role Variables
 
 This role requires variables set in the global scope defined in the respective service_vars file of the desired service. In the following a list of these variables is depicted:
 
@@ -30,16 +25,7 @@ This role requires variables set in the global scope defined in the respective s
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .user (optional)              | string  | root     | Service run as user                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;∟ .reload          | yes/no    | no    | Switch to decide if the systemd daemon shall be reloaded. Needed if the service config changed. |
 
-
-
-Dependencies
-------------
-
-None.
-
-
-Example Configuration
-----------------
+## Example Configuration
 
 In the following an example configuration of the update-server is shown. Note in this case no working directory is required:
 
@@ -53,12 +39,10 @@ In the following an example configuration of the update-server is shown. Note in
       autostart: yes
       user: updater
 
-License
--------
+## License
 
-MIT
+GPL-3.0
 
-Author Information
-------------------
+## Author Information
 
 This role was created in 2019 by Lenhard Reuter
